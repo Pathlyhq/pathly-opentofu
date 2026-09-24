@@ -1,0 +1,4 @@
+# Example tfvars — copy to terraform.tfvars locally; never commit secrets.
+webhook_url = "https://hooks.example.com/pathly"
+environment = "prod"
+folder      = "Shop"

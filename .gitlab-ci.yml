@@ -1,0 +1,39 @@
+# OpenTofu compatibility CI for pathlyhq/pathly examples.
+# Runs fmt/validate when `tofu` is on PATH; otherwise skips with a clear message.
+
+stages:
+  - verify
+
+variables:
+  TOFU_WORKDIR: examples/complete
+
+verify:compat:
+  stage: verify
+  image: alpine:3.20
+  before_script:
+    - apk add --no-cache bash curl unzip ca-certificates
+    - |
+      if command -v tofu >/dev/null 2>&1; then
+        echo "tofu already on PATH: $(tofu version | head -n1)"
+      else
+        echo "tofu not preinstalled; attempting optional install…"
+        # Best-effort: if download fails, the script still skips gracefully.
+        TOFU_VERSION="1.8.8"
+        ARCH="$(uname -m)"
+        case "$ARCH" in
+          x86_64) ARCH=amd64 ;;
+          aarch64) ARCH=arm64 ;;
+        esac
+        URL="https://github.com/opentofu/opentofu/releases/download/v${TOFU_VERSION}/tofu_${TOFU_VERSION}_linux_${ARCH}.zip"
+        if curl -fsSL -o /tmp/tofu.zip "$URL"; then
+          unzip -o /tmp/tofu.zip -d /usr/local/bin tofu
+          chmod +x /usr/local/bin/tofu
+        else
+          echo "Could not download OpenTofu; verify script will skip fmt/validate."
+        fi
+      fi
+  script:
+    - bash scripts/verify-compat.sh
+  rules:
+    - if: $CI_PIPELINE_SOURCE
+      when: always

@@ -1,0 +1,50 @@
+# Local / secrets
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~
+
+# Env
+.env
+.env.*
+!.env.example
+
+# bootstrap safety
+.env
+.env.*
+!.env.example
+node_modules/
+vendor/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+coverage/
+dist/
+lib/
+bin/
+*.egg-info/
+.DS_Store
+.idea/
+.vscode/
+
+.env
+.env.*
