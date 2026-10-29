@@ -60,6 +60,14 @@ resource "pathly_maintenance_window" "migration" {
   starts_at   = var.migration_starts_at
   ends_at     = var.migration_ends_at
   reason      = "Checkout funnel migration"
+
+  # OpenTofu 1.8 rejects a variable validation that reads another variable.
+  lifecycle {
+    precondition {
+      condition     = var.migration_ends_at != null
+      error_message = "A one-off window needs both of its bounds."
+    }
+  }
 }
 
 resource "pathly_webhook" "alerts" {
