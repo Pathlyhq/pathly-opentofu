@@ -1,4 +1,4 @@
-# Same checks as .gitlab-ci.yml (verify:compat), with OpenTofu really installed.
+# CI checks (verify:compat), with OpenTofu really installed.
 name: CI
 
 on:
