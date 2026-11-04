@@ -99,9 +99,4 @@ variable "migration_ends_at" {
   description = "End of the migration window, in ISO 8601."
   type        = string
   default     = null
-
-  validation {
-    condition     = var.migration_starts_at == null || var.migration_ends_at != null
-    error_message = "A one-off window needs both of its bounds."
-  }
 }

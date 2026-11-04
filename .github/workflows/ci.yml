@@ -1,0 +1,36 @@
+# CI checks (verify:compat), with OpenTofu really installed.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Before tofu is on PATH: the script runs its static checks only.
+      - run: bash scripts/verify-compat.sh
+      - uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: 1.8.8
+          tofu_wrapper: false
+      - run: tofu fmt -check -recursive examples
+      # pathlyhq/pathly is not on registry.opentofu.org yet: validate a copy
+      # of the example against the same provider from registry.terraform.io.
+      - name: tofu validate (examples/complete)
+        run: |
+          cp -r examples/complete /tmp/complete
+          sed -i 's|source\( *\)= "pathlyhq/pathly"|source\1= "registry.terraform.io/pathlyhq/pathly"|' /tmp/complete/main.tf
+          cd /tmp/complete
+          tofu init -backend=false -input=false
+          tofu validate

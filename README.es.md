@@ -3,7 +3,7 @@
 [English](README.md) · [Français](README.fr.md) · **Español**
 
 
-[![CI](https://gitlab.com/pathlyhq/pathly-opentofu/badges/main/pipeline.svg)](https://gitlab.com/pathlyhq/pathly-opentofu/-/pipelines)
+[![CI](https://github.com/Pathlyhq/pathly-opentofu/actions/workflows/ci.yml/badge.svg)](https://github.com/Pathlyhq/pathly-opentofu/actions/workflows/ci.yml)
 [![Powered by Pathly](https://img.shields.io/badge/Powered%20by-Pathly-0B5FFF?style=flat-square)](https://pathlyhq.com)
 [![Website](https://img.shields.io/badge/Website-pathlyhq.com-111827?style=flat-square)](https://pathlyhq.com)
 [![API docs](https://img.shields.io/badge/API-developers-2563eb?style=flat-square)](https://pathlyhq.com/es/developers)
@@ -17,8 +17,8 @@ mismas firmas GPG, mismo esquema): fuente
 Solo cambia el CLI (`tofu` en lugar de `terraform`). Este repositorio es el
 espejo de documentación y ejemplos orientado a OpenTofu. **No duplica** el
 código Go del provider. La implementación vive en
-[`pathly-terraform-provider`](https://github.com/pathlyhq/pathly-terraform-provider)
-(y su espejo GitLab).
+[`terraform-provider-pathly`](https://github.com/Pathlyhq/terraform-provider-pathly)
+
 
 ```hcl
 terraform {
@@ -96,7 +96,7 @@ pwsh ./scripts/verify-compat.ps1
 
 | Package | Role |
 |---|---|
-| [pathly-terraform-provider](https://github.com/pathlyhq/pathly-terraform-provider) | Provider implementation |
+| [terraform-provider-pathly](https://github.com/Pathlyhq/terraform-provider-pathly) | Provider implementation |
 | [pathly-cdktf](https://github.com/pathlyhq/pathly-cdktf) | CDK for Terraform |
 | [pathly-pulumi](https://github.com/pathlyhq/pathly-pulumi) | Pulumi |
 | [pathly-ansible](https://github.com/pathlyhq/pathly-ansible) | Ansible |
